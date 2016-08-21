@@ -9,5 +9,6 @@ public class FilePath {
 	public final static String LIBDIR = rootPath + "extlib"; //拓展包
 	public final static String LOGICS = rootPath + "logics.lm"; //逻辑词
 	public final static String CORPUS = rootPath + "Corpus"; //语料库
-	
+    public final static String VOICES = rootPath + "Voices"; //语音库
+
 }

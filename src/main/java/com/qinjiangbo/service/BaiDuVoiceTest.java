@@ -1,5 +1,7 @@
 package com.qinjiangbo.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.qinjiangbo.util.FilePath;
 import com.qinjiangbo.vojo.VoiceData;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -36,18 +39,17 @@ public class BaiDuVoiceTest {
 		token = getAccessToken();
 
 		try {
-			/*
+
 			FileInputStream fis = null;
 			byte[] voiceBuffer = null;
-			// fis = new FileInputStream(new File("./1.wav"));
-			fis = new FileInputStream(new File("./1.wav"));
+			fis = new FileInputStream(new File(FilePath.VOICES + "/3.wav"));
 			voiceBuffer = new byte[fis.available()];
 			fis.read(voiceBuffer);
-			fis.close();*/
-			HttpClient client = HttpClients.createDefault();
-			HttpGet post = new HttpGet("http://trial.cecesat.com/FileCenter/data/listening_passage1_2.wav");
-			HttpResponse response = client.execute(post);
-			byte[] voiceBuffer = EntityUtils.toByteArray(response.getEntity());
+			fis.close();
+//			HttpClient client = HttpClients.createDefault();
+//			HttpGet post = new HttpGet("http://trial.cecesat.com/FileCenter/data/listening_passage1_2.wav");
+//			HttpResponse response = client.execute(post);
+//			byte[] voiceBuffer = EntityUtils.toByteArray(response.getEntity());
 			//String str = EntityUtils.toString(response.getEntity());
 			ArrayList<byte[]> buffers = splitBuffer(voiceBuffer,
 					voiceBuffer.length, 1440000);// 每次上传45s以内的文件
