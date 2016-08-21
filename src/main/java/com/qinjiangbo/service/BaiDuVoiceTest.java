@@ -53,7 +53,6 @@ public class BaiDuVoiceTest {
 			//String str = EntityUtils.toString(response.getEntity());
 			ArrayList<byte[]> buffers = splitBuffer(voiceBuffer,
                     voiceBuffer.length, 1440000);// 每次上传45s以内的文件, 每秒32k
-            System.out.println(voiceBuffer.length);
             for (byte[] buf : buffers) {
 				voiceConvert(buf);
 			}
@@ -87,8 +86,6 @@ public class BaiDuVoiceTest {
 	}
 
 	public static void voiceConvert(byte[] voiceBuffer) {
-
-        System.out.println("====>" + voiceBuffer.length);
 
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost("http://vop.baidu.com/server_api");
