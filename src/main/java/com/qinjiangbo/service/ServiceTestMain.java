@@ -41,8 +41,8 @@ public class ServiceTestMain {
 //		PreProcessor preProcessor = new PreProcessor();
 //		String[] keyWords = {"changes", "computer", "countries", "family"};
 //		postProcessor.setKeyWords(keyWords);
-//		Type type = Type.LARGETEXT;
-//		postProcessor.setType(type);
+//		TextType type = TextType.LARGETEXT;
+//		postProcessor.setTextType(type);
 //		paramsConfig.setMinWordNum(280);
 //		preProcessor.process(text);
 //		@SuppressWarnings("unused")

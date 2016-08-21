@@ -9,7 +9,7 @@ import java.util.Set;
 
 import com.qinjiangbo.util.CorpusCache;
 import com.qinjiangbo.util.FilePath;
-import com.qinjiangbo.util.IsatkLanguageModel;
+import com.qinjiangbo.util.LanguageModel;
 import com.qinjiangbo.util.ParamsConfig;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class SentenceChecker {
 						true, new StringWordIndexer(), configOptions, Integer.MAX_VALUE);
 		for(String Sentence: Sentences) {
 			String[] terms = Sentence.split(" ");
-			float score = IsatkLanguageModel.scoreSentence(Arrays.asList(terms), lm);
+			float score = LanguageModel.scoreSentence(Arrays.asList(terms), lm);
 			score = score / terms.length;
 			scores.put(Sentence, new Float(score));
 		}
@@ -52,7 +52,7 @@ public class SentenceChecker {
 				LmReaders.readArrayEncodedLmFromArpa(FilePath.LMFILE, 
 						true, new StringWordIndexer(), configOptions, Integer.MAX_VALUE);
 		String[] terms = sentence.split(" ");
-		Float score = IsatkLanguageModel.scoreSentence(Arrays.asList(terms), lm);
+		Float score = LanguageModel.scoreSentence(Arrays.asList(terms), lm);
 		score = score / terms.length;
 		return score;
 	}
@@ -68,7 +68,7 @@ public class SentenceChecker {
 				LmReaders.readArrayEncodedLmFromArpa(FilePath.LMFILE, 
 						true, new StringWordIndexer(), configOptions, Integer.MAX_VALUE);
 		String[] terms = sentence.split(" ");
-		Map<List<String>, Float> scores = IsatkLanguageModel.scoreNgrams(Arrays.asList(terms), lm);
+		Map<List<String>, Float> scores = LanguageModel.scoreNgrams(Arrays.asList(terms), lm);
 		return scores;
 	}
 	

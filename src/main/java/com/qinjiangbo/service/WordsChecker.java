@@ -61,23 +61,23 @@ public class WordsChecker {
 	
 	/**
 	 * 统计超过或者少于长度为N的单词数量
-	 * @param mode 模式 Mode.MORETHAN和Mode.LESSTHAN
+	 * @param mode 模式 LengthMode.MORETHAN和Mode.LESSTHAN
 	 * @param length 单词长度标准
 	 * @param words 原文单词
 	 * @return 单词数量
 	 */
-	public static int countWordsWithMode(Mode mode, int length, List<String> words) {
+	public static int countWordsWithMode(LengthMode mode, int length, List<String> words) {
 		int num = 0;
 		//需要排除拼写错误的单词
 		List<String> mispelledWords = spellCheck(words);
-		if (mode == Mode.MORETHAN) {
+		if (mode == LengthMode.MORETHAN) {
 			for(String word: words) {
 				if(!mispelledWords.contains(word) && word.length() > length) {
 					num++;
 				}
 			}
 		}
-		else if(mode == Mode.LESSTHAN) {
+		else if(mode == LengthMode.LESSTHAN) {
 			for(String word: words) {
 				if(!mispelledWords.contains(word) && word.length() < length) {
 					num++;
@@ -89,17 +89,17 @@ public class WordsChecker {
 	
 	/**
 	 * 统计超过或者少于长度为N的单词数量
-	 * @param mode 模式 Mode.MORETHAN和Mode.LESSTHAN
+	 * @param mode 模式 LengthMode.MORETHAN和Mode.LESSTHAN
 	 * @param words 原文单词
 	 * @param paramsConfiguration
 	 * @return 单词数量
 	 */
-	public static int countWordsWithMode(Mode mode, List<String> words, ParamsConfig paramsConfiguration) {
+	public static int countWordsWithMode(LengthMode mode, List<String> words, ParamsConfig paramsConfiguration) {
 		int num = 0;
 		int length = 0;
 		//需要排除拼写错误的单词
 		List<String> mispelledWords = spellCheck(words);
-		if (mode == Mode.MORETHAN) {
+		if (mode == LengthMode.MORETHAN) {
 			length = paramsConfiguration.getOverLengthN();
 			for(String word: words) {
 				if(!mispelledWords.contains(word) && word.length() > length) {
@@ -107,7 +107,7 @@ public class WordsChecker {
 				}
 			}
 		}
-		else if(mode == Mode.LESSTHAN) {
+		else if(mode == LengthMode.LESSTHAN) {
 			length = paramsConfiguration.getBelowLengthN();
 			for(String word: words) {
 				if(!mispelledWords.contains(word) && word.length() < length) {
@@ -247,16 +247,16 @@ public class WordsChecker {
 	 * @param paramsConfiguration
 	 * @return 单词数
 	 */
-	public static int contentLengthCheck(Type type, String text, ParamsConfig paramsConfiguration) {
+	public static int contentLengthCheck(TextType textType, String text, ParamsConfig paramsConfiguration) {
 		int count = 0;
-		if(type == Type.LARGETEXT) {
+		if(textType == TextType.LARGETEXT) {
 			int MIN = paramsConfiguration.getMinWordNum();
 			int contentLength = text.length();
 			if(contentLength < MIN) {
 				count = MIN - contentLength;
 			}
 		}
-		else if(type == Type.TINYTEXT) {
+		else if(textType == TextType.TINYTEXT) {
 			int MAX = paramsConfiguration.getMaxWordNum();
 			int MIN = paramsConfiguration.getMinWordNum();
 			int contentLength = text.length();

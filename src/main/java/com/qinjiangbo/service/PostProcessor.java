@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.qinjiangbo.util.Mode;
+import com.qinjiangbo.util.LengthMode;
 import com.qinjiangbo.util.ParamsConfig;
-import com.qinjiangbo.util.Type;
+import com.qinjiangbo.util.TextType;
 import com.qinjiangbo.util.WeightConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
 public class PostProcessor {
 	
 	private String[] keyWords = null;
-	private Type type = null;
+	private TextType textType = null;
 	
 	@Autowired
 	private PreProcessor preProcessor;
@@ -117,10 +117,10 @@ public class PostProcessor {
 		DecimalFormat decimalFormat=new DecimalFormat("0.00");
 		Map<String, Object> result = new HashMap<String, Object>();
 		//超过N个字母的单词数量
-		int overNum = WordsChecker.countWordsWithMode(Mode.MORETHAN, words, paramsConfig);
+		int overNum = WordsChecker.countWordsWithMode(LengthMode.MORETHAN, words, paramsConfig);
 		Float scoreOver = ((float) overNum / numberW) * weightConfig.getWordChoice().getWeight() * weightConfig.getSubOverN().getWeight();
 		//低于N个字母的单词
-		int belowNum = WordsChecker.countWordsWithMode(Mode.LESSTHAN, words, paramsConfig);
+		int belowNum = WordsChecker.countWordsWithMode(LengthMode.LESSTHAN, words, paramsConfig);
 		Float scorebeLow = (1 - (float) belowNum / numberW) * weightConfig.getWordChoice().getWeight() * weightConfig.getSubBelowN().getWeight();
 		//全文单词重复率
 		int repeatNum = WordsChecker.repeatCheck(words, paramsConfig);
@@ -143,9 +143,9 @@ public class PostProcessor {
 		float scoreL = (actualRate / standardRate) > 1.0f ? 1.0f : (actualRate / standardRate);
 		Float scoreLogic = scoreL * weightConfig.getOrganization().getWeight() * weightConfig.getSubLogic().getWeight();
 		//全文单词数量检测
-		int count = WordsChecker.contentLengthCheck(type, text, paramsConfig);
+		int count = WordsChecker.contentLengthCheck(textType, text, paramsConfig);
 		Float scoreLength = 0.0f;
-		if(type == Type.LARGETEXT) {
+		if(textType == TextType.LARGETEXT) {
 			if(count > 0) {
 				int MIN = paramsConfig.getMinWordNum();
 				scoreLength = (1 - (float) count / MIN) * weightConfig.getOrganization().getWeight() * weightConfig.getSubWordCount().getWeight();
@@ -232,12 +232,12 @@ public class PostProcessor {
 		this.keyWords = keyWords;
 	}
 
-	public Type getType() {
-		return type;
+	public TextType getTextType() {
+		return textType;
 	}
 
-	public void setType(Type type) {
-		this.type = type;
+	public void setTextType(TextType textType) {
+		this.textType = textType;
 	}
 	
 }

@@ -13,7 +13,7 @@ import edu.berkeley.nlp.lm.collections.BoundedList;
  * @author QinJiangbo
  *
  */
-public class IsatkLanguageModel {
+public class LanguageModel {
 
 	/**
 	 * 判断每个句子的分数(所有短句分数之和)

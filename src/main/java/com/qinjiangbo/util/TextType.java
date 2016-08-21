@@ -1,6 +1,6 @@
 package com.qinjiangbo.util;
 
-public enum Type {
+public enum TextType {
 	//大作文
 	LARGETEXT,
 	//小作文
