@@ -52,14 +52,15 @@ public class BaiDuVoiceTest {
 //			byte[] voiceBuffer = EntityUtils.toByteArray(response.getEntity());
 			//String str = EntityUtils.toString(response.getEntity());
 			ArrayList<byte[]> buffers = splitBuffer(voiceBuffer,
-                    voiceBuffer.length, 1440000);// 每次上传45s以内的文件, 每秒32k
+                    voiceBuffer.length, 720000);// 每次上传45s以内的文件, 每秒32k
             for (byte[] buf : buffers) {
 				voiceConvert(buf);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+        System.out.println(mResult.toString());
+    }
 
 	public static ArrayList<byte[]> splitBuffer(byte[] buffer, int length,
 			int spsize) {
