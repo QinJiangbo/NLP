@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.qinjiangbo.util.CorpusCache;
-import com.qinjiangbo.util.NotPreProcessedException;
+import com.qinjiangbo.util.NotProcessedException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -57,11 +57,11 @@ public class PreProcessor {
 		Sentences.clear();
 		Words.clear();
 	}
-	
-	public List<String> getSentences() throws NotPreProcessedException {
-		if(Sentences.size() == 0) {
-			throw new NotPreProcessedException("Illegal Access! PreProcess the text first!");
-		}
+
+    public List<String> getSentences() throws NotProcessedException {
+        if(Sentences.size() == 0) {
+            throw new NotProcessedException("Illegal Access! PreProcess the text first!");
+        }
 		return Sentences;
 	}
 
@@ -69,10 +69,10 @@ public class PreProcessor {
 		Sentences = sentences;
 	}
 
-	public List<String> getWords() throws NotPreProcessedException {
-		if(Words.size() == 0) {
-			throw new NotPreProcessedException("Illegal Access! PreProcess the text first!");
-		}
+    public List<String> getWords() throws NotProcessedException {
+        if(Words.size() == 0) {
+            throw new NotProcessedException("Illegal Access! PreProcess the text first!");
+        }
 		return Words;
 	}
 

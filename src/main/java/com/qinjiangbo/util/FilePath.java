@@ -1,8 +1,8 @@
 package com.qinjiangbo.util;
 
 public class FilePath {
-	
-	private final static String rootPath = "/Users/Richard/Documents/NLP_Tools/";
+
+	public final static String rootPath = "/Users/Richard/Documents/NLP_Tools/";
 	
 	public final static String LMFILE = rootPath + "isat.lm"; //语言模型库
 	public final static String DICTDIR = rootPath + "Dict"; // 词典
