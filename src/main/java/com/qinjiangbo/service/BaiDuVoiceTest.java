@@ -29,40 +29,21 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
 
 public class BaiDuVoiceTest {
 	private static StringBuffer	mResult	= new StringBuffer();
 	private static String		token	= null;
 
-	// 目前百度支持的是60s
-	public static void main(String[] args) { // http://trial.cecesat.com/FileCenter/data/image/TF/TPO-34-L2.mp3
-		token = getAccessToken();
-
-		try {
-
-			FileInputStream fis = null;
-			byte[] voiceBuffer = null;
-			fis = new FileInputStream(new File(FilePath.VOICES + "/3.wav"));
-			voiceBuffer = new byte[fis.available()];
-			fis.read(voiceBuffer);
-			fis.close();
-//			HttpClient client = HttpClients.createDefault();
-//			HttpGet post = new HttpGet("http://trial.cecesat.com/FileCenter/data/listening_passage1_2.wav");
-//			HttpResponse response = client.execute(post);
-//			byte[] voiceBuffer = EntityUtils.toByteArray(response.getEntity());
-			//String str = EntityUtils.toString(response.getEntity());
-			ArrayList<byte[]> buffers = splitBuffer(voiceBuffer,
-                    voiceBuffer.length, 720000);// 每次上传45s以内的文件, 每秒32k
-            for (byte[] buf : buffers) {
-				voiceConvert(buf);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        System.out.println(mResult.toString());
-    }
-
-	public static ArrayList<byte[]> splitBuffer(byte[] buffer, int length,
+    /**
+     * 切割音频
+     *
+     * @param buffer
+     * @param length
+     * @param spsize
+     * @return
+     */
+    public static ArrayList<byte[]> splitBuffer(byte[] buffer, int length,
 			int spsize) {
 		ArrayList<byte[]> array = new ArrayList<byte[]>();
 		if (spsize <= 0 || length <= 0 || buffer == null
@@ -84,9 +65,13 @@ public class BaiDuVoiceTest {
 			}
 		}
 		return array;
-	}
+    }
 
-	public static void voiceConvert(byte[] voiceBuffer) {
+    /**
+     * 语音转换
+     * @param voiceBuffer
+     */
+    public static void voiceConvert(byte[] voiceBuffer) {
 
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost("http://vop.baidu.com/server_api");
@@ -99,10 +84,9 @@ public class BaiDuVoiceTest {
 		data.setToken(token);// 正式上线时候，判断超时时间，不超时，则不需要到百度去认证
 		data.setLan("en");
 		try {
-
 			data.setSpeech(DatatypeConverter
-					.printBase64Binary(voiceBuffer)); 
-			data.setLen(voiceBuffer.length);
+                    .printBase64Binary(voiceBuffer));
+            data.setLen(voiceBuffer.length);
 			ObjectMapper om = new ObjectMapper();
 			StringEntity entity = new StringEntity(
 					om.writeValueAsString(data));
@@ -120,10 +104,14 @@ public class BaiDuVoiceTest {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
+        }
+    }
 
-	public static String getAccessToken() {
+    /**
+     * 获取百度的令牌
+     * @return
+     */
+    public static String getAccessToken() {
 		String res = "";
 		try {
 			SSLContext sslContext = new SSLContextBuilder()
@@ -165,5 +153,31 @@ public class BaiDuVoiceTest {
 			e.printStackTrace();
 		}
 		return res;
-	}
+    }
+
+    // 目前百度支持的是60s
+    @Test
+    public void testVoice() { // http://trial.cecesat.com/FileCenter/data/image/TF/TPO-34-L2.mp3
+        token = getAccessToken();
+        try {
+            FileInputStream fis = null;
+            byte[] voiceBuffer = null;
+            fis = new FileInputStream(new File(FilePath.VOICES + "/3.wav"));
+            voiceBuffer = new byte[fis.available()];
+            fis.read(voiceBuffer);
+            fis.close();
+//			HttpClient client = HttpClients.createDefault();
+//			HttpGet post = new HttpGet("http://trial.cecesat.com/FileCenter/data/listening_passage1_2.wav");
+//			HttpResponse response = client.execute(post);
+//			byte[] voiceBuffer = EntityUtils.toByteArray(response.getEntity());
+            ArrayList<byte[]> buffers = splitBuffer(voiceBuffer,
+                    voiceBuffer.length, 720000);// 每次上传45s以内的文件, 每秒32k
+            for (byte[] buf : buffers) {
+                voiceConvert(buf);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(mResult.toString());
+    }
 }
