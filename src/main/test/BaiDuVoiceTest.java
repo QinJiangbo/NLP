@@ -1,5 +1,3 @@
-package com.qinjiangbo.service;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.security.cert.CertificateException;

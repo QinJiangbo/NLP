@@ -1,7 +1,10 @@
-package com.qinjiangbo.service;
-
+import com.qinjiangbo.service.PostProcessor;
+import com.qinjiangbo.service.SentenceChecker;
 import com.qinjiangbo.util.*;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +15,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class NLPServiceTest {
 
     @Test
