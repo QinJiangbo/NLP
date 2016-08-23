@@ -40,8 +40,7 @@ public class BaiDuVoiceTest {
      * @param spsize
      * @return
      */
-    public static ArrayList<byte[]> splitBuffer(byte[] buffer, int length,
-			int spsize) {
+	public static ArrayList<byte[]> splitBuffer(byte[] buffer, int length, int spsize) {
 		ArrayList<byte[]> array = new ArrayList<byte[]>();
 		if (spsize <= 0 || length <= 0 || buffer == null
 				|| buffer.length < length)
