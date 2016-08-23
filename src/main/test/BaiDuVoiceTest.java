@@ -29,7 +29,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 public class BaiDuVoiceTest {
-	private static StringBuffer	mResult	= new StringBuffer();
+
+    private static StringBuffer	mResult	= new StringBuffer();
 	private static String		token	= null;
 
     /**

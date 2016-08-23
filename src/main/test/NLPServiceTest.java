@@ -60,13 +60,5 @@ public class NLPServiceTest {
         Map<String, Integer> cache = CorpusCache.loadCache();
         System.out.println(cache.size());
 
-        String sentence = "There is many students";
-        System.out.println("score===>" + SentenceChecker.scoreSentence(sentence));
-        Map<List<String>, Float> scores1 = SentenceChecker.ngramsCheck(sentence);
-        Set<Entry<List<String>, Float>> entrySet = scores1.entrySet();
-        for (Entry<List<String>, Float> entry : entrySet) {
-            System.out.println(entry.getKey() + "===>" + entry.getValue());
-        }
-
     }
 }
