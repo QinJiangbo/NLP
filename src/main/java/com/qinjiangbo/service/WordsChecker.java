@@ -369,4 +369,14 @@ public class WordsChecker {
 		}
 		return substr;
 	}
+
+	/**
+	 * 错误单词拼写建议
+	 *
+	 * @param word
+	 * @return
+	 */
+	public static List<String> suggestWords(String word) {
+		return enUS_Dict.suggest(word);
+	}
 }

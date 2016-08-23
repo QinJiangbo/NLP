@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * {@link com.qinjiangbo.service.PostProcessor PostProcessor}是用来进行文章评估的类<br>
+ * {@link com.qinjiangbo.service.ScoreProcessor PostProcessor}是用来进行文章评估的类<br>
  * 文章评估主要分为六大模块进行，分别是<br>
  * <ul>
  * <li>1. conventions 拼写和语法</li>
@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class PostProcessor {
+public class ScoreProcessor {
 	
 	private String[] keyWords = null;
 	private TextType textType = null;

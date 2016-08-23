@@ -1,11 +1,7 @@
 package com.qinjiangbo.service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import com.qinjiangbo.util.CorpusCache;
 import com.qinjiangbo.util.FilePath;
@@ -62,14 +58,21 @@ public class SentenceChecker {
 	 * @param sentence
 	 * @return
 	 */
-	public static Map<List<String>, Float> ngramsCheck(String sentence) {
+	public static List<String> ngramsCheck(String sentence) {
 		final ConfigOptions configOptions = new ConfigOptions();
-		final ArrayEncodedProbBackoffLm<String> lm = 
-				LmReaders.readArrayEncodedLmFromArpa(FilePath.LMFILE, 
+		final ArrayEncodedProbBackoffLm<String> lm =
+				LmReaders.readArrayEncodedLmFromArpa(FilePath.LMFILE,
 						true, new StringWordIndexer(), configOptions, Integer.MAX_VALUE);
 		String[] terms = sentence.split(" ");
 		Map<List<String>, Float> scores = LanguageModel.scoreNgrams(Arrays.asList(terms), lm);
-		return scores;
+		Set<Entry<List<String>, Float>> entrySet = scores.entrySet();
+		float currentMin = 0.0f;
+		List<String> currentKey = new ArrayList<String>();
+		for (Entry<List<String>, Float> entry : entrySet) {
+			currentKey = currentMin < entry.getValue() ? currentKey : entry.getKey();
+			currentMin = currentMin < entry.getValue() ? currentMin : entry.getValue();
+		}
+		return currentKey;
 	}
 	
 	/**

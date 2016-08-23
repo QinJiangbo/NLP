@@ -1,4 +1,4 @@
-import com.qinjiangbo.service.PostProcessor;
+import com.qinjiangbo.service.ScoreProcessor;
 import com.qinjiangbo.service.SentenceChecker;
 import com.qinjiangbo.util.*;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import java.util.Map.Entry;
 public class NLPServiceTest {
 
     @Autowired
-    private PostProcessor postProcessor;
+    private ScoreProcessor postProcessor;
 
     @Test
     public void testMain() throws Exception {
