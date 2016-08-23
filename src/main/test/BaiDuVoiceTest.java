@@ -68,10 +68,8 @@ public class BaiDuVoiceTest {
      * @param voiceBuffer
      */
     public static void voiceConvert(byte[] voiceBuffer) {
-
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost("http://vop.baidu.com/server_api");
-
 		VoiceData data = new VoiceData();
 		data.setFormat("wav");
 		data.setRate(16000);
@@ -123,7 +121,6 @@ public class BaiDuVoiceTest {
 							}).build();
 			SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
 					sslContext);
-
 			HttpClient client = HttpClients.custom()
 					.setSSLSocketFactory(sslsf).build();
 			HttpPost post = new HttpPost(
