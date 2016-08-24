@@ -1,9 +1,6 @@
 package com.qinjiangbo.service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,8 +25,25 @@ public class WordsChecker {
 	private static Hunspell.Dictionary enUS_Dict = null;
 	private static Hunspell.Dictionary enGB_Dict = null; 
 	private static List<String> logics = new ArrayList<String>();
-	
-	/**
+
+    static {
+        if (enUS_Dict == null && enGB_Dict == null) {
+            String dictDir = FilePath.DICTDIR;
+            String libDir = FilePath.LIBDIR;
+            String US_Lang = "en-US"; //使用美式英语
+            String GB_Lang = "en-GB"; //增加英式英语
+            try {
+                enUS_Dict = getInstance(libDir).getDictionary(dictDir + "/" + US_Lang);
+                enGB_Dict = getInstance(libDir).getDictionary(dictDir + "/" + GB_Lang);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
 	 * 单词拼写检查
 	 * @param words 单词集合
 	 * @return 错误单词集合
@@ -37,14 +51,6 @@ public class WordsChecker {
 	public static List<String> spellCheck(List<String> words) {
 		List<String> mispelledWords = new ArrayList<String>();
 		try {
-			if(enUS_Dict == null && enGB_Dict == null) {
-				String dictDir = FilePath.DICTDIR;
-				String libDir = FilePath.LIBDIR;
-				String US_Lang = "en-US"; //使用美式英语
-				String GB_Lang = "en-GB"; //增加英式英语
-				enUS_Dict = getInstance(libDir).getDictionary(dictDir + "/" + US_Lang);
-				enGB_Dict = getInstance(libDir).getDictionary(dictDir + "/" + GB_Lang);
-			}
 			for(int i=0; i < words.size(); i++) {
 				String word = words.get(i);
 				if(enUS_Dict.misspelled(word) && enGB_Dict.misspelled(word)) {
