@@ -31,11 +31,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ScoreProcessor {
-	
-	private String[] keyWords = null;
-	private TextType textType = null;
-	
-	@Autowired
+
+    private String[] keyWords = new String[]{};
+    private TextType textType = TextType.LARGETEXT;
+
+    @Autowired
     private TextSplitProcessor preProcessor;
 
     /**

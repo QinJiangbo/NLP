@@ -38,7 +38,6 @@ public class TextSplitProcessor {
 		List<String> words = new ArrayList<String>();
 		for(String sentence: sentences) {
 			//需要加上点\',某些短语是有意义的
-			sentence = sentence.replaceAll("-[ ]", "");
 			sentence = sentence.replaceAll("[^a-zA-z0-9\']", " ");
 			sentence = sentence.replaceAll(" +", " ");
 			String[] wds = sentence.split(" ");

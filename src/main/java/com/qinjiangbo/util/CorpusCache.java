@@ -239,6 +239,7 @@ public class CorpusCache {
 		text = text.replaceAll(" +", " ");
 		text = text.replaceAll("’", "'");
 		text = text.replaceAll("‘", "'");
+		text = text.replaceAll("- ", "");
 		return text;
 	}
 }
