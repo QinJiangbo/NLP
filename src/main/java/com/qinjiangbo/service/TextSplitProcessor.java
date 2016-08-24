@@ -23,8 +23,8 @@ public class TextSplitProcessor {
 	 * @return true-处理正常;false-处理异常
 	 */
 	public boolean process(String text) {
-		//处理文章
-		Sentences = CorpusCache.splitText(text);
+        //处理文章
+        Sentences = CorpusCache.splitText(text);
 		Words = splitSentences(Sentences);
 		return true;
 	}
