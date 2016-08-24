@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 @Service
-public class PreProcessor {
+public class TextSplitProcessor {
 	
 	private List<String> Sentences = new ArrayList<String>();
 	private List<String> Words = new ArrayList<String>();
-	
-	public PreProcessor() {}
+
+	public TextSplitProcessor() {
+	}
 	
 	/**
 	 * 预处理学生作文

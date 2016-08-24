@@ -36,16 +36,18 @@ public class ScoreProcessor {
 	private TextType textType = null;
 	
 	@Autowired
-	private PreProcessor preProcessor;
-	
-	/**
+    private TextSplitProcessor preProcessor;
+
+    /**
 	 * 后置处理器，根据配置对作文进行评分
 	 * @param text
 	 * @return
 	 */
 	public Map<String, Object> process(String text, WeightConfig weightConfig, ParamsConfig paramsConfig) {
-		//预处理
-		preProcessor.process(text);
+        weightConfig = weightConfig == null ? new WeightConfig() : weightConfig;
+        paramsConfig = paramsConfig == null ? new ParamsConfig() : paramsConfig;
+        //预处理
+        preProcessor.process(text);
 		List<String> Sentences = preProcessor.getSentences();
 		List<String> words = preProcessor.getWords();
 		Map<String, Object> scores = new HashMap<String, Object>();
