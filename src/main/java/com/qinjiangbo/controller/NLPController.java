@@ -100,7 +100,7 @@ public class NLPController {
             List<String> suggestSens = SentenceChecker.ngramsCheck(sentence);
             StringBuilder stringBuilder = new StringBuilder();
             for (String suggest : suggestSens) {
-                stringBuilder.append(suggest);
+                stringBuilder.append(suggest + " ");
             }
             result.put("suggestSen", stringBuilder.toString());
             result.put("rtnCode", 1);
